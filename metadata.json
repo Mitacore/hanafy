@@ -1,0 +1,7 @@
+{
+  "name": "VisionMock AI Studio",
+  "description": "A high-end AI-powered mockup generator that creates professional product and UI showcases using Gemini's advanced image generation and editing capabilities.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

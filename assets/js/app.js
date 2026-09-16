@@ -25,5 +25,7 @@
     return load('assets/js/viewer.js?v=20260916d');
   }).then(() => {
     return load('assets/js/viewer-controls.js?v=20260916b');
+  }).then(() => {
+    return load('assets/js/mohtawa-viewer.js?v=20260916a');
   }).catch(err => console.error('Portfolio runtime failed to load', err));
 })();

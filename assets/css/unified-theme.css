@@ -1,0 +1,92 @@
+/* Unified portfolio canvas — keeps the whole site on one dark visual plane */
+:root{
+  --portfolio-canvas:#292b2b;
+  --portfolio-canvas-deep:#242626;
+  --portfolio-line:rgba(255,255,255,.08);
+  --portfolio-max:1380px;
+}
+
+html,
+body{
+  background:var(--portfolio-canvas)!important;
+}
+
+body{
+  color:#f3efe7;
+  background-image:
+    radial-gradient(circle at 50% 12%,rgba(255,255,255,.025),transparent 34%),
+    linear-gradient(180deg,var(--portfolio-canvas) 0%,var(--portfolio-canvas-deep) 100%)!important;
+  background-attachment:fixed!important;
+}
+
+main,
+.social-flow,
+.work-section,
+.motion-panel,
+#graphic-design,
+#storyboarding,
+#game-art,
+.environment-block,
+.sketches-section{
+  background-color:transparent!important;
+}
+
+.site-header{
+  background:rgba(41,43,43,.92)!important;
+  border-bottom:1px solid var(--portfolio-line)!important;
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+
+footer{
+  background:var(--portfolio-canvas-deep)!important;
+  border-top:1px solid var(--portfolio-line)!important;
+}
+
+/* Character Design must live on the same full-width axis as Concept Art,
+   instead of being trapped inside the narrower artwork wrapper. */
+#character-design{
+  width:100vw!important;
+  max-width:none!important;
+  margin-left:calc(50% - 50vw)!important;
+  margin-right:calc(50% - 50vw)!important;
+}
+
+#character-design .character-showcase{
+  width:100%!important;
+  max-width:none!important;
+  background:transparent!important;
+  border-top:1px solid var(--portfolio-line)!important;
+  border-bottom:1px solid var(--portfolio-line)!important;
+}
+
+#character-design .cd-head,
+#character-design .cd-window,
+#character-design .cd-foot{
+  width:min(calc(100% - 48px),var(--portfolio-max))!important;
+  max-width:var(--portfolio-max)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+#character-design .cd-window{
+  background:rgba(10,11,12,.82)!important;
+  border:1px solid rgba(255,255,255,.055)!important;
+  box-shadow:0 30px 90px rgba(0,0,0,.18)!important;
+}
+
+/* Reduce the feeling of isolated blocks between major sections. */
+#graphic-design,
+#character-design,
+#storyboarding,
+#game-art{
+  border-color:var(--portfolio-line)!important;
+}
+
+@media (max-width:700px){
+  #character-design .cd-head,
+  #character-design .cd-window,
+  #character-design .cd-foot{
+    width:calc(100% - 16px)!important;
+  }
+}

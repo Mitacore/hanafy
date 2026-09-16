@@ -1,0 +1,63 @@
+name: Import portfolio assets
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/import-portfolio-assets.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  import-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download portfolio assets from Google Drive
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets/projects
+
+          download_drive_file() {
+            local id="$1"
+            local output="$2"
+            echo "Downloading $output"
+            curl --fail --location --retry 3 --retry-delay 2 \
+              "https://drive.usercontent.google.com/download?id=${id}&export=download&confirm=t" \
+              --output "$output"
+            test -s "$output"
+            file "$output"
+          }
+
+          download_drive_file "10p3hql9ykMntPBlD6ZV-EIRg0oIK731o" "assets/projects/zayed-race-hungary-2026.pdf"
+          download_drive_file "1yZUWEpHQEO6JiA0yR_Yff02KHQnLu6yr" "assets/projects/zayed-race-china-2026.pdf"
+          download_drive_file "1d_uwcRS_Orty_LPEfDT38u4jh2HsMFFq" "assets/projects/thumma-inqadat.png"
+          download_drive_file "118-GXi9kPXF8JwGF_cs1xtq4GZz_wihA" "assets/projects/hunalika-hubb.png"
+
+          head -c 4 assets/projects/zayed-race-hungary-2026.pdf | grep -q '%PDF'
+          head -c 4 assets/projects/zayed-race-china-2026.pdf | grep -q '%PDF'
+          python - <<'PY'
+          from pathlib import Path
+          for path in [Path('assets/projects/thumma-inqadat.png'), Path('assets/projects/hunalika-hubb.png')]:
+              data = path.read_bytes()[:12]
+              if not (data.startswith(b'\x89PNG\r\n\x1a\n') or data.startswith(b'\xff\xd8\xff') or data.startswith(b'RIFF')):
+                  raise SystemExit(f'Unexpected image format: {path}')
+          PY
+
+      - name: Commit imported assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- assets/projects && [ -z "$(git status --porcelain -- assets/projects)" ]; then
+            echo "No asset changes to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/projects
+          git commit -m "Import portfolio project assets"
+          git push

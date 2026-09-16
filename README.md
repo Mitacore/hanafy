@@ -1,20 +1,20 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Hanafy Artfolio — Standalone Static Build
 
-# Run and deploy your AI Studio app
+This package is an independent static copy of the exported ChatGPT Site.
 
-This contains everything you need to run your app locally.
+## What is included
+- Rendered portfolio HTML
+- Original CSS snapshot
+- Local image assets
+- Standalone JavaScript recreating the interactive motion streams, pause/play controls, concept-art album, storyboard carousels, drag/swipe behavior, and internal navigation
+- Original Google Drive artwork links
+- Vercel and Netlify deployment config
 
-View your app in AI Studio: https://ai.studio/apps/drive/19e3zSpw4bfV9cLYbUv4oWYhpx4bfhLRO
+## Local preview
+Run a local static server from this folder, e.g. `python -m http.server 8000`, then open `http://localhost:8000`.
 
-## Run Locally
+## Deployment
+Upload the folder to Vercel/Netlify or connect it to a GitHub repository. The site itself does not require ChatGPT Plus or ChatGPT credits once hosted externally.
 
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Note
+The original ChatGPT Sites framework runtime was intentionally removed. The site uses the saved rendered DOM and its original CSS, with a small standalone runtime for interactions.

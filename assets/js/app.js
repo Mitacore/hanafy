@@ -20,6 +20,8 @@
       const href = restore.get(file);
       if (href) img.closest('a.moving-frame').setAttribute('href', href);
     });
-    return load('assets/js/viewer.js?v=20260916c');
+    return load('assets/js/viewer-performance.js?v=20260916a');
+  }).then(() => {
+    return load('assets/js/viewer.js?v=20260916d');
   }).catch(err => console.error('Portfolio runtime failed to load', err));
 })();

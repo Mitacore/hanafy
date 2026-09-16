@@ -4,211 +4,177 @@
   const host = document.querySelector('#character-design');
   if (!host) return;
 
-  // Fold the separate sketchbook strip into the main character-design story.
+  // Character studies now live in one unified section.
   document.querySelector('#sketches')?.remove();
 
-  const characters = [
-    {
-      title: 'Pinocchio',
-      ar: 'تصميم شخصية',
-      meta: 'Stylized Character',
-      image: 'assets/images/02-pinocchio.webp',
-      tone: 'warm'
-    },
-    {
-      title: "Jemey’s Adventure",
-      ar: 'بطل المغامرة',
-      meta: 'Adventure Character',
-      image: 'assets/images/03-jemeys-adventure.webp',
-      tone: 'sky'
-    },
-    {
-      title: 'Character Development',
-      ar: 'تطوير الشخصية',
-      meta: 'Exploration & Shape Language',
-      image: 'assets/images/04-character-development.webp',
-      tone: 'paper'
-    },
-    {
-      title: 'Assassin',
-      ar: 'تصميم محارب',
-      meta: 'Silhouette & Costume',
-      image: 'assets/images/05-assassin.webp',
-      tone: 'crimson'
-    },
-    {
-      title: 'Island Fighter',
-      ar: 'مقاتل الجزيرة',
-      meta: 'Fighter Concept',
-      image: 'assets/images/06-island-fighter.webp',
-      tone: 'jungle'
-    },
-    {
-      title: 'Character Sketches',
-      ar: 'اسكتشات ودراسات',
-      meta: 'Sketchbook & Studies',
-      image: 'assets/images/07-character-sketches.webp',
-      tone: 'ink'
-    }
+  const items = [
+    {title:'Pinocchio', ar:'تصميم شخصية', meta:'STYLIZED CHARACTER', image:'assets/images/02-pinocchio.webp', tone:'sand'},
+    {title:"Jemey’s Adventure", ar:'شخصية مغامرة', meta:'CHARACTER EXPLORATION', image:'assets/images/03-jemeys-adventure.webp', tone:'blue'},
+    {title:'Character Development', ar:'تطوير الشخصية', meta:'SHAPE · POSE · DEVELOPMENT', image:'assets/images/04-character-development.webp', tone:'paper'},
+    {title:'Assassin', ar:'تصميم محارب', meta:'COSTUME · SILHOUETTE', image:'assets/images/05-assassin.webp', tone:'red'},
+    {title:'Island Fighter', ar:'مقاتل الجزيرة', meta:'FIGHTER CONCEPT', image:'assets/images/06-island-fighter.webp', tone:'green'},
+    {title:'Character Sketches', ar:'اسكتشات ودراسات', meta:'SKETCHBOOK · STUDIES', image:'assets/images/07-character-sketches.webp', tone:'ink'}
   ];
 
-  const left = [characters[0], characters[2], characters[4]];
-  const right = [characters[1], characters[3], characters[5]];
+  const left = [items[0], items[2], items[4]];
+  const right = [items[1], items[3], items[5]];
 
-  const card = item => `
-    <a class="cd-card moving-frame cd-${item.tone}" href="${item.image}" aria-label="${item.title} — open full character artwork">
-      <span class="cd-card-bg" aria-hidden="true"></span>
-      <span class="cd-art-wrap"><img src="${item.image}" alt="${item.title}" loading="lazy" decoding="async" draggable="false"></span>
-      <span class="cd-info">
-        <span class="cd-copy">
-          <strong>${item.title}</strong>
-          <span class="cd-meta">${item.meta}</span>
-        </span>
-        <span class="cd-ar" dir="rtl" lang="ar">${item.ar}</span>
+  const card = x => `
+    <a class="cd2-card moving-frame cd2-${x.tone}" href="${x.image}" aria-label="${x.title} — view full artwork">
+      <span class="cd2-blur" style="background-image:url('${x.image}')" aria-hidden="true"></span>
+      <span class="cd2-shade" aria-hidden="true"></span>
+      <span class="cd2-art"><img src="${x.image}" alt="${x.title}" loading="lazy" decoding="async" draggable="false"></span>
+      <span class="cd2-index">CHARACTER STUDY</span>
+      <span class="cd2-caption">
+        <span class="cd2-name"><strong>${x.title}</strong><small>${x.meta}</small></span>
+        <span class="cd2-ar" lang="ar" dir="rtl">${x.ar}</span>
       </span>
-      <span class="cd-view" aria-hidden="true">VIEW ↗</span>
+      <span class="cd2-open" aria-hidden="true">↗</span>
     </a>`;
 
-  const cycle = items => `<div class="cd-cycle">${items.map(card).join('')}</div>`;
+  const cycle = list => `<div class="cd2-cycle">${list.map(card).join('')}</div>`;
 
   host.innerHTML = `
-    <section class="character-showcase" aria-label="Character Design — تصميم الشخصيات">
-      <div class="cd-head">
-        <div class="cd-kicker">CHARACTER ART · DEVELOPMENT · SKETCHES</div>
-        <div class="cd-title-wrap">
-          <h2>CHARACTER<br><span>DESIGN</span></h2>
-          <div class="cd-ar-title" dir="rtl" lang="ar">تصميم<br>الشخصيات</div>
+    <section class="cd2" aria-label="Character Design — تصميم الشخصيات">
+      <div class="cd2-head">
+        <div class="cd2-eyebrow"><span>CHARACTER ART</span><span>VISUAL DEVELOPMENT</span><span>SKETCHES</span></div>
+        <div class="cd2-title">
+          <h2><span>CHARACTER</span><b>DESIGN</b></h2>
+          <div class="cd2-ar-title" lang="ar" dir="rtl">تصميم الشخصيات</div>
         </div>
-        <div class="cd-head-bottom">
-          <p>From first sketch to final silhouette — character exploration, shape language, costume, expression and visual storytelling.</p>
-          <button class="cd-pause" type="button" aria-pressed="false" aria-label="Pause character design animation"><span class="cd-pause-icon">Ⅱ</span><span class="cd-pause-text">Pause</span></button>
+        <div class="cd2-intro">
+          <p>Exploration from rough sketch to final character — shape language, costume, pose, expression and visual identity.</p>
+          <button class="cd2-pause" type="button" aria-pressed="false"><span class="cd2-pause-icon">Ⅱ</span><span class="cd2-pause-label">Pause</span></button>
         </div>
       </div>
-      <div class="cd-window">
-        <div class="cd-lane" data-direction="up">${cycle(left)}${cycle(left)}</div>
-        <div class="cd-lane cd-down" data-direction="down">${cycle(right)}${cycle(right)}</div>
-        <div class="cd-vignette cd-vignette-top" aria-hidden="true"></div>
-        <div class="cd-vignette cd-vignette-bottom" aria-hidden="true"></div>
+
+      <div class="cd2-window">
+        <div class="cd2-lane" data-dir="up">${cycle(left)}${cycle(left)}</div>
+        <div class="cd2-lane cd2-down" data-dir="down">${cycle(right)}${cycle(right)}</div>
+        <span class="cd2-fade cd2-fade-top" aria-hidden="true"></span>
+        <span class="cd2-fade cd2-fade-bottom" aria-hidden="true"></span>
       </div>
-      <div class="cd-foot">
-        <span>Character studies / visual development</span>
-        <span dir="rtl" lang="ar">اضغط على أي عمل لمشاهدته بالكامل</span>
-      </div>
+
+      <div class="cd2-bottom"><span>SELECTED CHARACTER WORK</span><span lang="ar" dir="rtl">اضغط على أي تصميم لمشاهدته بالكامل</span></div>
     </section>`;
 
   const style = document.createElement('style');
   style.textContent = `
-    #character-design{margin:0!important;padding:0!important}
-    #character-design + *{margin-top:0}
-    .character-showcase{position:relative;overflow:hidden;background:#0e0e10;color:#f6f3ed;padding:clamp(56px,7vw,104px) clamp(18px,4.7vw,76px) clamp(54px,6vw,88px);border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)}
-    .cd-head{max-width:1380px;margin:0 auto 34px}
-    .cd-kicker{font-size:11px;letter-spacing:.24em;font-weight:700;color:#918f89;margin-bottom:18px}
-    .cd-title-wrap{position:relative;display:flex;align-items:flex-end;gap:clamp(20px,5vw,80px);min-height:150px}
-    .cd-title-wrap h2{margin:0;font-size:clamp(62px,10.4vw,164px);line-height:.77;letter-spacing:-.075em;font-weight:800;color:#f4f0e8}
-    .cd-title-wrap h2 span{color:transparent;-webkit-text-stroke:1.4px rgba(244,240,232,.88)}
-    .cd-ar-title{font-family:inherit;font-size:clamp(30px,5.2vw,76px);font-weight:700;line-height:.95;color:#d7c6a7;transform:translateY(-4px);white-space:nowrap}
-    .cd-head-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;margin-top:28px;padding-top:22px;border-top:1px solid rgba(255,255,255,.13)}
-    .cd-head-bottom p{max-width:720px;margin:0;color:#aaa7a1;font-size:clamp(14px,1.25vw,18px);line-height:1.65}
-    .cd-pause{flex:0 0 auto;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.055);color:#fff;border-radius:999px;height:42px;padding:0 16px;display:inline-flex;gap:9px;align-items:center;font:600 12px/1 inherit;letter-spacing:.05em;cursor:pointer}
-    .cd-pause:hover{background:rgba(255,255,255,.12)}
-    .cd-pause-icon{font-size:12px;letter-spacing:-2px}
-    .cd-window{position:relative;max-width:1380px;height:clamp(760px,94vw,1180px);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,2vw,28px);overflow:hidden;border-radius:26px;background:#09090b;padding:clamp(10px,1.2vw,18px)}
-    .cd-lane{height:100%;overflow:hidden;scrollbar-width:none;overscroll-behavior:none;touch-action:pan-y}
-    .cd-lane::-webkit-scrollbar{display:none}
-    .cd-cycle{display:flex;flex-direction:column;gap:clamp(12px,1.7vw,24px);padding-bottom:clamp(12px,1.7vw,24px)}
-    .cd-card{position:relative;display:block;text-decoration:none;color:#fff;border-radius:22px;overflow:hidden;min-height:clamp(410px,49vw,720px);isolation:isolate;border:1px solid rgba(255,255,255,.09);box-shadow:0 18px 60px rgba(0,0,0,.28);cursor:zoom-in}
-    .cd-card-bg{position:absolute;inset:0;z-index:-3;background:var(--cd-bg)}
-    .cd-card-bg:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 70% 16%,rgba(255,255,255,.17),transparent 34%),linear-gradient(to bottom,transparent 52%,rgba(0,0,0,.57));mix-blend-mode:screen;opacity:.52}
-    .cd-warm{--cd-bg:linear-gradient(145deg,#573522 0%,#b4834f 48%,#30241d 100%)}
-    .cd-sky{--cd-bg:linear-gradient(145deg,#143d58 0%,#4790a5 48%,#514168 100%)}
-    .cd-paper{--cd-bg:linear-gradient(145deg,#696257 0%,#b2a897 48%,#3d3a37 100%)}
-    .cd-crimson{--cd-bg:linear-gradient(145deg,#190f13 0%,#6e1e2b 48%,#171719 100%)}
-    .cd-jungle{--cd-bg:linear-gradient(145deg,#10281d 0%,#356348 48%,#1c241e 100%)}
-    .cd-ink{--cd-bg:linear-gradient(145deg,#181a24 0%,#414a64 48%,#22242f 100%)}
-    .cd-art-wrap{position:absolute;inset:24px 22px 92px;display:flex;align-items:center;justify-content:center}
-    .cd-art-wrap img{display:block;width:auto;height:auto;max-width:96%;max-height:96%;object-fit:contain;border-radius:12px;box-shadow:0 20px 54px rgba(0,0,0,.24);transition:transform .38s cubic-bezier(.2,.7,.2,1),filter .3s ease}
-    .cd-card:hover .cd-art-wrap img{transform:scale(1.025);filter:saturate(1.04) contrast(1.02)}
-    .cd-info{position:absolute;left:22px;right:22px;bottom:20px;display:flex;align-items:flex-end;justify-content:space-between;gap:15px;z-index:3}
-    .cd-copy{display:flex;flex-direction:column;gap:5px;min-width:0}
-    .cd-copy strong{font-size:clamp(16px,1.55vw,24px);letter-spacing:-.025em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .cd-meta{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.63)}
-    .cd-ar{font-size:clamp(15px,1.45vw,21px);font-weight:700;color:#f0debd;white-space:nowrap}
-    .cd-view{position:absolute;top:16px;right:16px;z-index:5;background:rgba(10,10,12,.62);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.15);border-radius:999px;padding:8px 10px;font-size:9px;font-weight:800;letter-spacing:.13em;opacity:.72;transition:.2s}
-    .cd-card:hover .cd-view{opacity:1;background:#f5efe4;color:#111}
-    .cd-vignette{position:absolute;left:0;right:0;height:110px;z-index:8;pointer-events:none}
-    .cd-vignette-top{top:0;background:linear-gradient(#09090b,transparent)}
-    .cd-vignette-bottom{bottom:0;background:linear-gradient(transparent,#09090b)}
-    .cd-foot{max-width:1380px;margin:18px auto 0;display:flex;justify-content:space-between;gap:20px;color:#716f6a;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
-    .cd-foot [lang="ar"]{letter-spacing:0;text-transform:none;font-size:13px;color:#8f897f}
+    #character-design{margin:0!important;padding:0!important;width:100%!important;max-width:none!important}
+    #character-design>.art-ribbon{display:none!important}
+    .cd2{--cream:#f2eadf;--muted:#9f9a92;position:relative;background:#121313;color:var(--cream);padding:clamp(64px,8vw,118px) clamp(18px,4.8vw,82px) clamp(56px,7vw,96px);overflow:hidden;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)}
+    .cd2-head,.cd2-window,.cd2-bottom{max-width:1450px;margin-left:auto;margin-right:auto}
+    .cd2-eyebrow{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;color:#928e87;font-size:10px;font-weight:700;letter-spacing:.18em}
+    .cd2-eyebrow span{border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:7px 10px}
+    .cd2-title{position:relative;padding:6px 0 18px;border-bottom:1px solid rgba(255,255,255,.13)}
+    .cd2-title h2{margin:0;display:flex;flex-direction:column;align-items:flex-start;font-size:clamp(70px,11vw,172px);line-height:.72;letter-spacing:-.078em;font-weight:900;text-transform:uppercase}
+    .cd2-title h2 span{color:var(--cream)}
+    .cd2-title h2 b{font:inherit;color:transparent;-webkit-text-stroke:1.5px rgba(242,234,223,.92);margin-left:clamp(36px,8vw,126px)}
+    .cd2-ar-title{position:absolute;right:0;bottom:20px;color:#d6b987;font-weight:800;font-size:clamp(30px,4.7vw,70px);line-height:1;white-space:nowrap;letter-spacing:-.035em}
+    .cd2-intro{display:flex;align-items:flex-start;justify-content:space-between;gap:28px;padding:22px 0 30px}
+    .cd2-intro p{max-width:710px;margin:0;color:#aaa69f;font-size:clamp(13px,1.25vw,18px);line-height:1.65}
+    .cd2-pause{height:42px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.055);color:#fff;border-radius:999px;padding:0 16px;display:flex;align-items:center;gap:9px;font:700 11px/1 inherit;letter-spacing:.08em;cursor:pointer}
+    .cd2-pause:hover{background:rgba(255,255,255,.11)}
+
+    .cd2-window{position:relative;height:clamp(820px,86vw,1160px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,2vw,28px);overflow:hidden;border-radius:28px;background:#090a0a;padding:clamp(9px,1.1vw,16px)}
+    .cd2-lane{height:100%;overflow:hidden;scrollbar-width:none;overscroll-behavior:none;touch-action:pan-y}
+    .cd2-lane::-webkit-scrollbar{display:none}
+    .cd2-cycle{display:flex;flex-direction:column;gap:clamp(12px,1.6vw,24px);padding-bottom:clamp(12px,1.6vw,24px)}
+    .cd2-card{position:relative;display:block;aspect-ratio:4/5;min-height:0;border-radius:22px;overflow:hidden;text-decoration:none;color:#fff;border:1px solid rgba(255,255,255,.10);box-shadow:0 24px 70px rgba(0,0,0,.34);isolation:isolate;cursor:zoom-in;background:#1a1a1a}
+    .cd2-blur{position:absolute;inset:-10%;z-index:-4;background-size:cover;background-position:center;filter:blur(30px) saturate(.72) brightness(.55);transform:scale(1.12);opacity:.78}
+    .cd2-shade{position:absolute;inset:0;z-index:-3;background:linear-gradient(180deg,rgba(0,0,0,.10) 0%,rgba(0,0,0,.04) 52%,rgba(0,0,0,.78) 100%),radial-gradient(circle at 50% 24%,rgba(255,255,255,.14),transparent 44%)}
+    .cd2-sand{background:#5b4636}.cd2-blue{background:#203849}.cd2-paper{background:#5e5a52}.cd2-red{background:#35161b}.cd2-green{background:#1b3427}.cd2-ink{background:#252936}
+    .cd2-art{position:absolute;inset:46px 28px 108px;display:flex;align-items:center;justify-content:center}
+    .cd2-art img{display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:9px;box-shadow:0 16px 50px rgba(0,0,0,.30);transition:transform .35s cubic-bezier(.2,.72,.2,1)}
+    .cd2-card:hover .cd2-art img{transform:scale(1.025)}
+    .cd2-index{position:absolute;left:18px;top:17px;font-size:8px;font-weight:800;letter-spacing:.18em;color:rgba(255,255,255,.62)}
+    .cd2-open{position:absolute;right:15px;top:14px;width:34px;height:34px;border:1px solid rgba(255,255,255,.19);background:rgba(0,0,0,.26);backdrop-filter:blur(8px);border-radius:50%;display:grid;place-items:center;font-size:18px;transition:.2s}
+    .cd2-card:hover .cd2-open{background:#f4eee5;color:#111;transform:rotate(5deg)}
+    .cd2-caption{position:absolute;left:20px;right:20px;bottom:18px;display:flex;justify-content:space-between;align-items:flex-end;gap:18px}
+    .cd2-name{display:flex;flex-direction:column;gap:4px;min-width:0}
+    .cd2-name strong{font-size:clamp(17px,1.5vw,24px);line-height:1.08;letter-spacing:-.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .cd2-name small{font-size:8px;letter-spacing:.15em;color:rgba(255,255,255,.58);font-weight:700}
+    .cd2-ar{color:#ead1a6;font-size:clamp(14px,1.25vw,19px);font-weight:800;white-space:nowrap}
+    .cd2-fade{position:absolute;left:0;right:0;height:115px;z-index:8;pointer-events:none}
+    .cd2-fade-top{top:0;background:linear-gradient(#090a0a,transparent)}
+    .cd2-fade-bottom{bottom:0;background:linear-gradient(transparent,#090a0a)}
+    .cd2-bottom{display:flex;justify-content:space-between;gap:18px;padding-top:16px;color:#77746f;font-size:9px;font-weight:700;letter-spacing:.15em}
+    .cd2-bottom [lang="ar"]{letter-spacing:0;font-size:12px;font-weight:600;color:#918b82}
+
     @media(max-width:700px){
-      .character-showcase{padding:48px 10px 42px}
-      .cd-head{padding:0 8px;margin-bottom:22px}
-      .cd-kicker{font-size:9px;letter-spacing:.17em;margin-bottom:14px}
-      .cd-title-wrap{display:block;min-height:0}
-      .cd-title-wrap h2{font-size:clamp(52px,18vw,86px);line-height:.8}
-      .cd-ar-title{position:absolute;right:0;bottom:4px;font-size:clamp(25px,8.8vw,42px);text-shadow:0 3px 20px rgba(0,0,0,.38)}
-      .cd-head-bottom{align-items:center;margin-top:22px;padding-top:16px}
-      .cd-head-bottom p{font-size:12px;line-height:1.5;max-width:74%}
-      .cd-pause{height:38px;padding:0 12px}
-      .cd-pause-text{display:none}
-      .cd-window{height:860px;border-radius:18px;gap:8px;padding:7px}
-      .cd-cycle{gap:8px;padding-bottom:8px}
-      .cd-card{min-height:430px;border-radius:16px}
-      .cd-art-wrap{inset:14px 10px 78px}
-      .cd-art-wrap img{max-width:100%;max-height:97%;border-radius:8px}
-      .cd-info{left:12px;right:12px;bottom:13px;display:block}
-      .cd-copy{gap:2px}
-      .cd-copy strong{font-size:13px}
-      .cd-meta{font-size:7px;letter-spacing:.09em}
-      .cd-ar{display:block;margin-top:4px;font-size:12px}
-      .cd-view{top:9px;right:9px;padding:6px 7px;font-size:7px}
-      .cd-vignette{height:72px}
-      .cd-foot{padding:0 8px;font-size:8px;align-items:flex-start}
-      .cd-foot [lang="ar"]{font-size:10px;text-align:right}
+      .cd2{padding:48px 8px 46px}
+      .cd2-head{padding:0 8px}
+      .cd2-eyebrow{gap:5px;margin-bottom:13px;font-size:7px;letter-spacing:.12em}
+      .cd2-eyebrow span{padding:5px 7px}
+      .cd2-title{padding-bottom:52px}
+      .cd2-title h2{font-size:clamp(52px,17.6vw,84px);line-height:.76}
+      .cd2-title h2 b{margin-left:20px;-webkit-text-stroke-width:1px}
+      .cd2-ar-title{left:22px;right:auto;bottom:14px;font-size:clamp(25px,8.5vw,38px)}
+      .cd2-intro{padding:15px 0 20px;align-items:center}
+      .cd2-intro p{font-size:11px;line-height:1.45;max-width:78%}
+      .cd2-pause{width:38px;height:38px;padding:0;justify-content:center}
+      .cd2-pause-label{display:none}
+      .cd2-window{height:820px;border-radius:17px;gap:7px;padding:6px}
+      .cd2-cycle{gap:7px;padding-bottom:7px}
+      .cd2-card{border-radius:14px;aspect-ratio:3/4}
+      .cd2-art{inset:35px 8px 88px}
+      .cd2-art img{border-radius:5px}
+      .cd2-index{left:10px;top:10px;font-size:5.7px;letter-spacing:.10em}
+      .cd2-open{right:8px;top:8px;width:26px;height:26px;font-size:13px}
+      .cd2-caption{left:10px;right:10px;bottom:10px;display:block}
+      .cd2-name{gap:2px}.cd2-name strong{font-size:12px}.cd2-name small{font-size:5.6px;letter-spacing:.08em}
+      .cd2-ar{display:block;margin-top:3px;font-size:10px}
+      .cd2-fade{height:65px}
+      .cd2-bottom{padding:12px 7px 0;font-size:6.5px}.cd2-bottom [lang="ar"]{font-size:9px;text-align:right}
     }
   `;
   document.head.appendChild(style);
 
   let paused = false;
-  const pauseBtn = host.querySelector('.cd-pause');
-  pauseBtn?.addEventListener('click', () => {
+  const pause = host.querySelector('.cd2-pause');
+  pause?.addEventListener('click', () => {
     paused = !paused;
-    pauseBtn.setAttribute('aria-pressed', paused ? 'true' : 'false');
-    pauseBtn.querySelector('.cd-pause-icon').textContent = paused ? '▶' : 'Ⅱ';
-    pauseBtn.querySelector('.cd-pause-text').textContent = paused ? 'Play' : 'Pause';
+    pause.setAttribute('aria-pressed', String(paused));
+    pause.querySelector('.cd2-pause-icon').textContent = paused ? '▶' : 'Ⅱ';
+    pause.querySelector('.cd2-pause-label').textContent = paused ? 'Play' : 'Pause';
   });
 
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  host.querySelectorAll('.cd-lane').forEach(lane => {
-    const reverse = lane.dataset.direction === 'down';
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  host.querySelectorAll('.cd2-lane').forEach(lane => {
+    const down = lane.dataset.dir === 'down';
     let cycleHeight = 0;
     let hover = false;
+    let dragging = false;
+    let y0 = 0, s0 = 0;
     let last = performance.now();
 
     const measure = () => {
-      const first = lane.querySelector('.cd-cycle');
+      const first = lane.querySelector('.cd2-cycle');
       cycleHeight = first ? first.getBoundingClientRect().height : lane.scrollHeight / 2;
-      if (reverse && cycleHeight && lane.scrollTop < 2) lane.scrollTop = cycleHeight;
+      if (down && cycleHeight && lane.scrollTop < 2) lane.scrollTop = cycleHeight;
     };
-
-    lane.addEventListener('mouseenter', () => hover = true);
-    lane.addEventListener('mouseleave', () => hover = false);
-    lane.addEventListener('focusin', () => hover = true);
-    lane.addEventListener('focusout', () => hover = false);
+    lane.addEventListener('mouseenter',()=>hover=true);
+    lane.addEventListener('mouseleave',()=>hover=false);
+    lane.addEventListener('pointerdown',e=>{
+      if(e.target.closest('a.cd2-card')) return;
+      dragging=true;y0=e.clientY;s0=lane.scrollTop;
+      try{lane.setPointerCapture(e.pointerId)}catch(_){}
+    });
+    lane.addEventListener('pointermove',e=>{if(dragging) lane.scrollTop=s0-(e.clientY-y0)});
+    const end=e=>{dragging=false;try{lane.releasePointerCapture(e.pointerId)}catch(_){}};
+    lane.addEventListener('pointerup',end);lane.addEventListener('pointercancel',end);
 
     const tick = now => {
-      const dt = Math.min((now - last) / 1000, .05);
-      last = now;
-      if (!paused && !hover && !reducedMotion && cycleHeight > 0 && !document.body.classList.contains('pf-lock')) {
-        const speed = window.innerWidth <= 700 ? 24 : 30;
-        lane.scrollTop += (reverse ? -1 : 1) * speed * dt;
-        if (!reverse && lane.scrollTop >= cycleHeight) lane.scrollTop -= cycleHeight;
-        if (reverse && lane.scrollTop <= 0) lane.scrollTop += cycleHeight;
+      const dt=Math.min((now-last)/1000,.05);last=now;
+      if(!paused&&!hover&&!dragging&&!reduced&&cycleHeight>0&&!document.body.classList.contains('pf-lock')){
+        const speed=window.innerWidth<=700?19:25;
+        lane.scrollTop+=(down?-1:1)*speed*dt;
+        if(!down&&lane.scrollTop>=cycleHeight) lane.scrollTop-=cycleHeight;
+        if(down&&lane.scrollTop<=0) lane.scrollTop+=cycleHeight;
       }
       requestAnimationFrame(tick);
     };
-
-    requestAnimationFrame(() => { measure(); requestAnimationFrame(tick); });
-    window.addEventListener('resize', measure, {passive:true});
+    requestAnimationFrame(()=>{measure();requestAnimationFrame(tick)});
+    window.addEventListener('resize',measure,{passive:true});
   });
 })();

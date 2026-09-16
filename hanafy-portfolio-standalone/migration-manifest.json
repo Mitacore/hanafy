@@ -1,0 +1,477 @@
+{
+  "source_archive": "New folder.rar",
+  "source_archive_sha256": "50ea5a679ee535bc919bf7bfb4f9bb1b0f52b9e8df0a72bc346afa953f159098",
+  "standalone_files": [
+    {
+      "path": "README.md",
+      "bytes": 963,
+      "sha256": "3211268471cabb9028ef7e9edcfaeb84a8d2ae931cbb03e9233b7c67c4be60f2"
+    },
+    {
+      "path": "assets/css/style.css",
+      "bytes": 200051,
+      "sha256": "881b4dbcf0f0ca89ead6de44e87d9cb4c5f3941d6b2a8bbd3b16eeb0c3407d7a"
+    },
+    {
+      "path": "assets/images/01-storyboard.webp",
+      "bytes": 613638,
+      "sha256": "e3a134e9d1d0f6e13c9cda6093bd26f0b1e84c7fafa527ecc13f8c4d9a744d82"
+    },
+    {
+      "path": "assets/images/02-pinocchio.webp",
+      "bytes": 318052,
+      "sha256": "76214137bfde295aa096805cf738f4c9b3dc453110fc6c43f5c2d2d54c14e0a0"
+    },
+    {
+      "path": "assets/images/03-jemeys-adventure.webp",
+      "bytes": 350592,
+      "sha256": "41c1e29cf365ab6c6589f85db71d2f847f9cbb485beeee347f355401077e6bfd"
+    },
+    {
+      "path": "assets/images/04-character-development.webp",
+      "bytes": 185622,
+      "sha256": "eb1394cdc4f514c998fc6659404133c8a47106d97932f9d054126ba41640de5e"
+    },
+    {
+      "path": "assets/images/05-assassin.webp",
+      "bytes": 226700,
+      "sha256": "ccaedd799a4044a74fd45650b1aac6d6fe138b03005d5979979a5701d8c895c9"
+    },
+    {
+      "path": "assets/images/06-island-fighter.webp",
+      "bytes": 191366,
+      "sha256": "443824e5962c9892c4ee161638006e93f9ba1f215605ee8ee7bb1569cea451e9"
+    },
+    {
+      "path": "assets/images/07-character-sketches.webp",
+      "bytes": 341726,
+      "sha256": "8035fa9d9f2592d7c3db66a4731f73d6773a710b96277ab77db2c28d531b670a"
+    },
+    {
+      "path": "assets/images/ai-storyboards.webp",
+      "bytes": 585304,
+      "sha256": "6c4475f4d5606c83aab93684d63f6e90a25ebc0fa43c1dd20e6c0918c5ee2af3"
+    },
+    {
+      "path": "assets/images/cairo-scene.png",
+      "bytes": 1274947,
+      "sha256": "0731a5b6c56e4fea353fb1da8104b0f1901fb101fd6a5958fd2d880bd689b5fe"
+    },
+    {
+      "path": "assets/images/contents.webp",
+      "bytes": 302814,
+      "sha256": "6ff0f0488266a4248dbea1ffa958ad92fdafa1299ab9fa9ca5f729ab125651b7"
+    },
+    {
+      "path": "assets/images/cover(1).webp",
+      "bytes": 101618,
+      "sha256": "bb5b712e8649ff591873cb8f4b4ac3f0be19eae2c348a9c574244500f3a1536b"
+    },
+    {
+      "path": "assets/images/cover(10).webp",
+      "bytes": 53806,
+      "sha256": "4a692a4b0820f6de5e0e5d4bd99d1eee3f1f6d772b92aff227196dd9fba54cd8"
+    },
+    {
+      "path": "assets/images/cover(11).webp",
+      "bytes": 58544,
+      "sha256": "5e6ff2c9707b06b68c8a2a9f17d1549f2bb9b51b4b553e013fd403bcd2683ec1"
+    },
+    {
+      "path": "assets/images/cover(12).webp",
+      "bytes": 70392,
+      "sha256": "d4cfd734a386fb6c4e564570024cb26ca8d7fbc9b44a7f13aebf27e5c3e71a9d"
+    },
+    {
+      "path": "assets/images/cover(13).webp",
+      "bytes": 46380,
+      "sha256": "4cdf159df426b972f753a367c7409b15cb5b2d145725567c19fca9e7fa09cc21"
+    },
+    {
+      "path": "assets/images/cover(14).webp",
+      "bytes": 58756,
+      "sha256": "c108b958cd470421dea4a3c8b01842f3f4e4b8b0baf37e4bef30df065f370cc1"
+    },
+    {
+      "path": "assets/images/cover(15).webp",
+      "bytes": 62736,
+      "sha256": "f709c38a7bae4b506841e67e9602c20dd1a39f0a786c4c52a8959c6311e06ceb"
+    },
+    {
+      "path": "assets/images/cover(16).webp",
+      "bytes": 109154,
+      "sha256": "56e15e7a39d043b34a23ab9a5318ae683ac00bfe495b0043a259957f9beed98a"
+    },
+    {
+      "path": "assets/images/cover(17).webp",
+      "bytes": 65154,
+      "sha256": "929194c504f82bb9273d8922ed3711a7a22c3acf49b6ee220a8aa79279e0fa10"
+    },
+    {
+      "path": "assets/images/cover(18).webp",
+      "bytes": 69960,
+      "sha256": "489ade33d321644378f33e141bd21583e0b23d6768d5748643074edd9e8d8690"
+    },
+    {
+      "path": "assets/images/cover(19).webp",
+      "bytes": 59770,
+      "sha256": "6aeedc837fc4b824d651710b70e966686fa82957272c1953f0d872a3a89a8450"
+    },
+    {
+      "path": "assets/images/cover(2).webp",
+      "bytes": 63676,
+      "sha256": "e7073b25e783b45ef370f7e51326090dd79296bfe4897dc3951e8a7162db3671"
+    },
+    {
+      "path": "assets/images/cover(20).webp",
+      "bytes": 62012,
+      "sha256": "58b0cefa80014b8101579ab540cef9cee5944abfed608ef54fa514beaa3c651a"
+    },
+    {
+      "path": "assets/images/cover(21).webp",
+      "bytes": 54986,
+      "sha256": "a394e6c84642f709509ee5d671c225aa5ab163bf7994b6804b0b2a79847e31a3"
+    },
+    {
+      "path": "assets/images/cover(22).webp",
+      "bytes": 70068,
+      "sha256": "ed348ffe5750763a7c88aee00f23b2b1e2b2a384024f1b20e490c1170f4d3bfb"
+    },
+    {
+      "path": "assets/images/cover(23).webp",
+      "bytes": 44958,
+      "sha256": "8dc65504f4642d4af53575e52f37cf63df282fd532231c10c3ccc9268cd2249c"
+    },
+    {
+      "path": "assets/images/cover(24).webp",
+      "bytes": 68986,
+      "sha256": "0a97897f7410740e58b2b84582e51d8172ae604a794cd918a9914703016a94f7"
+    },
+    {
+      "path": "assets/images/cover(25).webp",
+      "bytes": 89234,
+      "sha256": "d6f18c81b692eb846d4ed17b9bf05f6616c8cea71882c6a064ee6d07df4700f2"
+    },
+    {
+      "path": "assets/images/cover(26).webp",
+      "bytes": 102852,
+      "sha256": "db18f0df08fb70623e90e11944f70b0e27ab21078f262b52bbbafc5f87f5200e"
+    },
+    {
+      "path": "assets/images/cover(3).webp",
+      "bytes": 122460,
+      "sha256": "c959a41338475943507c3bb8dae178473eb47a240f0a7181e2559ff4b55515c0"
+    },
+    {
+      "path": "assets/images/cover(4).webp",
+      "bytes": 116738,
+      "sha256": "1b65d592f218caea160706b8e26bf7ba067ee5fa1f011062f3b326f70f3728ef"
+    },
+    {
+      "path": "assets/images/cover(5).webp",
+      "bytes": 69722,
+      "sha256": "bb96a7c60bb51b08d700274fb376a04cb33ad5be65e80df1dd933def0dc784ea"
+    },
+    {
+      "path": "assets/images/cover(6).webp",
+      "bytes": 95344,
+      "sha256": "62d4d75f54d5af76988219b000050456250f72442da415de6cfd2b43bee5ed28"
+    },
+    {
+      "path": "assets/images/cover(7).webp",
+      "bytes": 42632,
+      "sha256": "4c62d2566b9c94ae9570415ac1e2dbede56141d9bbaff221c6ef2d25866e9508"
+    },
+    {
+      "path": "assets/images/cover(8).webp",
+      "bytes": 49018,
+      "sha256": "50559d3d1b7d7bc896dc696445153b96e5564d32fa7628f84fe50bb5c2bb14fc"
+    },
+    {
+      "path": "assets/images/cover(9).webp",
+      "bytes": 70154,
+      "sha256": "79d80cf939d3bf44b5f1c3deb787abf21f97bb9562d0e6043df9d02699dd78a6"
+    },
+    {
+      "path": "assets/images/cover-v2(1).webp",
+      "bytes": 62044,
+      "sha256": "ec06b85d912f793875badc0fb08853261a6088d17f745c9e0f510898b1adb342"
+    },
+    {
+      "path": "assets/images/cover-v2(2).webp",
+      "bytes": 84708,
+      "sha256": "47032f3c15d197548ecb1a01726b3804ddaca9bd652217080c6b57cc76748434"
+    },
+    {
+      "path": "assets/images/cover-v2(3).webp",
+      "bytes": 67018,
+      "sha256": "bf200578a1916ebbeb04c7d50390df52b08a9fdda670a949d50aa60adb2212ee"
+    },
+    {
+      "path": "assets/images/cover-v2(4).webp",
+      "bytes": 73642,
+      "sha256": "b7cadd676ab4eec0f0db644abb19056d32dfba074dfaedcdea5504cf5108abbd"
+    },
+    {
+      "path": "assets/images/cover-v2(5).webp",
+      "bytes": 90090,
+      "sha256": "b685c686a769a035a6bae3932a1e1f5a40683094bf9d0a7e56f3313ef18d298e"
+    },
+    {
+      "path": "assets/images/cover-v2(6).webp",
+      "bytes": 168620,
+      "sha256": "67c8aeb63e015c3cadd65d704a49cdcedc7af41bb5a50b2aefbd0bdd569bc19f"
+    },
+    {
+      "path": "assets/images/cover-v2.webp",
+      "bytes": 52780,
+      "sha256": "c73078b29dc5ae576ee8987c796be847ccb30cb86f01ace0d5b18d6c174461cd"
+    },
+    {
+      "path": "assets/images/cover.webp",
+      "bytes": 105162,
+      "sha256": "97356f33c198856dc7769f03e86a5cf4c72fef41aaf54aa00bccc749b2415cbd"
+    },
+    {
+      "path": "assets/images/forest-scene.png",
+      "bytes": 749614,
+      "sha256": "e768fa81f226676310a8ce96836dc1f9f4bcce826b59951792a198dd8f4af0df"
+    },
+    {
+      "path": "assets/images/human-storyboards.webp",
+      "bytes": 610982,
+      "sha256": "0a13ecaaff245b3221a7ffbc72986ed0c16c14a0f66ff6ce02a5a15ca1b3c82f"
+    },
+    {
+      "path": "assets/images/portfolio-reference-new.webp",
+      "bytes": 2645896,
+      "sha256": "0556c3472f6668c049689aeb43cbdcdf9078c9214733dc9541172153e3c07a34"
+    },
+    {
+      "path": "assets/images/pylons-scene-final.jpg",
+      "bytes": 2725822,
+      "sha256": "533d9753e5503683f7b6a7f03cfa69c51b94ca641ecaf77301eba7006e10a8cf"
+    },
+    {
+      "path": "assets/images/small-spaces.webp",
+      "bytes": 452626,
+      "sha256": "e8e9409b1b3e654c4fafe919cfd48b0f830eb85c55bd84fd44b9d68beed4bbed"
+    },
+    {
+      "path": "assets/images/title-transparent.png",
+      "bytes": 1192286,
+      "sha256": "2fd4858fd3b9f72669a21dd0e3ffc5c6883f66681ea42dc586b3f9e01f6e7472"
+    },
+    {
+      "path": "assets/js/app.js",
+      "bytes": 9709,
+      "sha256": "345f233fda844ed78c005a6bae53ac234851df9ab8c47895f17ff4c41fde2a80"
+    },
+    {
+      "path": "index.html",
+      "bytes": 104472,
+      "sha256": "f8acbebb796feae817a1127dc3c54103b7d332c40f329140b8301b13db4496a7"
+    },
+    {
+      "path": "netlify.toml",
+      "bytes": 108,
+      "sha256": "260a81526f039d94c869c8c222925634eefa465e47246fb20202cdb1039786e0"
+    },
+    {
+      "path": "vercel.json",
+      "bytes": 49,
+      "sha256": "0377a3d4263aadc3f66619aa8c6f93f865a86e05cee1738e9fa9cc42ce5e4616"
+    }
+  ],
+  "html_summary": {
+    "image_elements": 138,
+    "unique_local_image_paths": 50,
+    "button_elements": 15,
+    "unique_external_links": 34,
+    "section_ids": [
+      {
+        "tag": "div",
+        "id": "home",
+        "class": [
+          "reference-intro"
+        ]
+      },
+      {
+        "tag": "section",
+        "id": "about",
+        "class": [
+          "reference-about"
+        ]
+      },
+      {
+        "tag": "section",
+        "id": "social-media",
+        "class": [
+          "social-flow"
+        ]
+      },
+      {
+        "tag": "section",
+        "id": "abu-dhabi-tv",
+        "class": [
+          "motion-panel",
+          "motion-abu"
+        ]
+      },
+      {
+        "tag": "section",
+        "id": "mohtawa",
+        "class": [
+          "motion-panel",
+          "motion-mohtawa"
+        ]
+      },
+      {
+        "tag": "section",
+        "id": "graphic-design",
+        "class": [
+          "work-section"
+        ]
+      },
+      {
+        "tag": "section",
+        "id": "concept-art",
+        "class": [
+          "work-section"
+        ]
+      },
+      {
+        "tag": "div",
+        "id": "character-design",
+        "class": []
+      },
+      {
+        "tag": "div",
+        "id": "storyboarding",
+        "class": [
+          "artwork-block"
+        ]
+      },
+      {
+        "tag": "section",
+        "id": "human-storyboards",
+        "class": [
+          "story-player",
+          "story-human"
+        ]
+      },
+      {
+        "tag": "section",
+        "id": "ai-storyboards",
+        "class": [
+          "story-player",
+          "story-ai"
+        ]
+      },
+      {
+        "tag": "section",
+        "id": "game-art",
+        "class": [
+          "work-section",
+          "game-section"
+        ]
+      },
+      {
+        "tag": "section",
+        "id": "sketches",
+        "class": [
+          "work-section",
+          "sketches-section"
+        ]
+      }
+    ]
+  },
+  "unique_external_links": [
+    "https://drive.google.com/file/d/1-z0aS8zy57HoRKfQRQZkZM9X0LNKRvnZ/view?usp=drivesdk",
+    "https://drive.google.com/file/d/118-GXi9kPXF8JwGF_cs1xtq4GZz_wihA/view?usp=drivesdk",
+    "https://drive.google.com/file/d/12El-dIL-rmMTNX7LrcMU_tMnqrKJ5Axd/view?usp=drivesdk",
+    "https://drive.google.com/file/d/152m_6PR7Qya7BymmrdxRmVPH4D1dmA-B/view?usp=drivesdk",
+    "https://drive.google.com/file/d/17FJs_ft4JCNUQbdLWBq267QjnoHj9iiV/view?usp=drivesdk",
+    "https://drive.google.com/file/d/18Fx1JCBvJoWstV9Zr6gi_B8daHfajFfU/view?usp=drivesdk",
+    "https://drive.google.com/file/d/19aZ7VsaxEbwKdwVM-K8piWw8L-lCfs5s/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1AhzmWkk2-DIbH5wMCcSdEs9KQ969040Y/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1E-yqjhRNz5GFiAeObCZvmA2Bhf0_ey0W/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1GKh3qd4ggJyA6KKLnBHBTSN6AkpdP6GK/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1JofROo6MBiTlYrQWgJNP7SklLsIZbkK8/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1L4ZzsFXiz20N3-YL2G_hTL1WvQjv0FsK/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1MONiVqv7VPpF4z1ZMXGeB3jGxz52mj7G/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1Oor2E44siEBOuLEjYcFS74LJ-Yz1Pk1N/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1PCRTMXropkwmXqoc2T9VhO9ZFpANlVO7/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1PYZEKhfVo2BZgqLpi-vyEGGGoRQxaLLt/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1Qq45z_AuHvFow0hwhGdxr3tczv-lmp6h/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1RInG9PfxPpMLgca_qvWhqgrDnntTAqhv/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1Rbw391IVriArpmt0Yide9FgZQQvn5kIU/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1SbWwXhxDxeZYeEVgEI30-nE2VOMakb4R/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1W10kIpoqSkp_W24zEaIJNuhjUW1Eeupn/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1ZZSem2sVPhapIYsnAEsiZm-6bnyEGrL8/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1c2YmIGrf7P2FKbhVPpjozh_QxLXNT-KO/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1d_uwcRS_Orty_LPEfDT38u4jh2HsMFFq/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1de9M0H7wJUVEx1PsPBFfPTTRa9-yB22l/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1eHIn845ZYEr1SnwEjUTJa9xbsD1JTKcP/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1gCit8U716bZW8ZiqAWrzvfi8l3B76qas/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1h7Njao-THSPVi7-pWQtPuww3xNu8W5AB/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1kSAvRJNHmgIpS22IOCYAOoX47ONhbJbA/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1mxQHXxxaF_HwYYT52iUBuHNQ0KD2avhb/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1rzajeP7L3oPipQ91Sc_SdRNwrSHMrsIA/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1uO0IWVDi6gHBMG1f7PEJCK5v7cKOiPH4/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1wK1Vl8OB0yPa6VQ2Io06f-6PEqfCrixk/view?usp=drivesdk",
+    "https://drive.google.com/file/d/1ytrL_vPAconcQv60Q1x6gRARNAEMyQl_/view?usp=drivesdk"
+  ],
+  "local_image_paths": [
+    "assets/images/01-storyboard.webp",
+    "assets/images/02-pinocchio.webp",
+    "assets/images/03-jemeys-adventure.webp",
+    "assets/images/04-character-development.webp",
+    "assets/images/05-assassin.webp",
+    "assets/images/06-island-fighter.webp",
+    "assets/images/07-character-sketches.webp",
+    "assets/images/ai-storyboards.webp",
+    "assets/images/cairo-scene.png",
+    "assets/images/contents.webp",
+    "assets/images/cover(1).webp",
+    "assets/images/cover(10).webp",
+    "assets/images/cover(11).webp",
+    "assets/images/cover(12).webp",
+    "assets/images/cover(13).webp",
+    "assets/images/cover(14).webp",
+    "assets/images/cover(15).webp",
+    "assets/images/cover(16).webp",
+    "assets/images/cover(17).webp",
+    "assets/images/cover(18).webp",
+    "assets/images/cover(19).webp",
+    "assets/images/cover(2).webp",
+    "assets/images/cover(20).webp",
+    "assets/images/cover(21).webp",
+    "assets/images/cover(22).webp",
+    "assets/images/cover(23).webp",
+    "assets/images/cover(24).webp",
+    "assets/images/cover(25).webp",
+    "assets/images/cover(26).webp",
+    "assets/images/cover(3).webp",
+    "assets/images/cover(4).webp",
+    "assets/images/cover(5).webp",
+    "assets/images/cover(6).webp",
+    "assets/images/cover(7).webp",
+    "assets/images/cover(8).webp",
+    "assets/images/cover(9).webp",
+    "assets/images/cover-v2(1).webp",
+    "assets/images/cover-v2(2).webp",
+    "assets/images/cover-v2(3).webp",
+    "assets/images/cover-v2(4).webp",
+    "assets/images/cover-v2(5).webp",
+    "assets/images/cover-v2(6).webp",
+    "assets/images/cover-v2.webp",
+    "assets/images/cover.webp",
+    "assets/images/forest-scene.png",
+    "assets/images/human-storyboards.webp",
+    "assets/images/portfolio-reference-new.webp",
+    "assets/images/pylons-scene-final.jpg",
+    "assets/images/small-spaces.webp",
+    "assets/images/title-transparent.png"
+  ]
+}

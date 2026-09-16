@@ -9,7 +9,7 @@
 
   load('assets/js/app-core.js?v=20260916b').then(() => {
     // app-core previously rewrote these three covers to PDF links. Restore the
-    // original artwork IDs so the new in-site viewer can build the real carousel.
+    // original artwork IDs so the in-site viewer can build the real carousel.
     const restore = new Map([
       ['cover.webp','https://drive.google.com/file/d/17FJs_ft4JCNUQbdLWBq267QjnoHj9iiV/view?usp=drivesdk'],
       ['cover-v2(1).webp','https://drive.google.com/file/d/1PYZEKhfVo2BZgqLpi-vyEGGGoRQxaLLt/view?usp=drivesdk'],
@@ -20,6 +20,6 @@
       const href = restore.get(file);
       if (href) img.closest('a.moving-frame').setAttribute('href', href);
     });
-    return load('assets/js/viewer.js?v=20260916b');
+    return load('assets/js/viewer.js?v=20260916c');
   }).catch(err => console.error('Portfolio runtime failed to load', err));
 })();

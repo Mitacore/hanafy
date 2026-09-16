@@ -4,15 +4,24 @@
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Portfolio link routing: single artworks keep their exact Google Drive image,
-  // while carousel covers open the combined PDF preview.
+  // while selected carousel covers open a combined PDF preview.
   const portfolioLinkOverrides = new Map([
     ['https://drive.google.com/file/d/17FJs_ft4JCNUQbdLWBq267QjnoHj9iiV/view?usp=drivesdk', 'https://drive.google.com/file/d/1lf2cU8Ik7oJbmdrZ4o1oROo1jPh0r3Xi/view?usp=drivesdk'],
     ['https://drive.google.com/file/d/1PYZEKhfVo2BZgqLpi-vyEGGGoRQxaLLt/view?usp=drivesdk', 'https://drive.google.com/file/d/10p3hql9ykMntPBlD6ZV-EIRg0oIK731o/view?usp=drivesdk'],
     ['https://drive.google.com/file/d/12El-dIL-rmMTNX7LrcMU_tMnqrKJ5Axd/view?usp=drivesdk', 'https://drive.google.com/file/d/1yZUWEpHQEO6JiA0yR_Yff02KHQnLu6yr/view?usp=drivesdk']
   ]);
+
+  // IMPORTANT: artwork links must remain clickable while the columns animate.
+  // The previous drag handler captured the pointer at the column level, which could
+  // cancel the browser's normal anchor click. Keep pointer events on the anchor and
+  // do not let a click on artwork start a column drag.
   document.querySelectorAll('a.moving-frame[href]').forEach(a => {
     const replacement = portfolioLinkOverrides.get(a.getAttribute('href'));
     if (replacement) a.setAttribute('href', replacement);
+    a.style.pointerEvents = 'auto';
+    a.addEventListener('pointerdown', e => e.stopPropagation());
+    a.addEventListener('pointerup', e => e.stopPropagation());
+    a.addEventListener('click', e => e.stopPropagation());
   });
 
   function setPauseIcon(button, paused, withText = false) {
@@ -84,6 +93,8 @@
       col.addEventListener('focusin', () => hover = true);
       col.addEventListener('focusout', () => hover = false);
       col.addEventListener('pointerdown', e => {
+        // Links get the pointer so the browser can open them normally.
+        if (e.target.closest('a.moving-frame')) return;
         if (e.pointerType === 'mouse' && e.button !== 0) return;
         dragging = true; lastY = e.clientY; startScroll = col.scrollTop;
         col.classList.add('is-dragging');
@@ -144,21 +155,19 @@
       backs.forEach((b,i) => b.classList.toggle('is-current', i === index));
       if (counter) counter.textContent = `${String(index+1).padStart(2,'0')} / ${String(n).padStart(2,'0')}`;
     };
-    const go = delta => { index = (index + delta + pages.length) % pages.length; render(); restart(); };
     const restart = () => {
       if (timer) clearInterval(timer);
-      if (!paused && !reducedMotion) timer = setInterval(() => { index = (index+1)%pages.length; render(); }, 6000);
+      if (!paused && !reducedMotion) timer = setInterval(() => { index = (index + 1) % pages.length; render(); }, 6000);
     };
+    const go = delta => { index = (index + delta + pages.length) % pages.length; render(); restart(); };
     prevBtn?.addEventListener('click', () => go(-1));
     nextBtn?.addEventListener('click', () => go(1));
-    pauseBtn?.addEventListener('click', () => {
-      paused = !paused; setPauseIcon(pauseBtn, paused, false); restart();
-    });
+    pauseBtn?.addEventListener('click', () => { paused = !paused; setPauseIcon(pauseBtn, paused, false); restart(); });
     const area = concept.querySelector('.concept-pages');
     if (area) {
       let x0 = null;
-      area.addEventListener('pointerdown', e => { x0 = e.clientX; try { area.setPointerCapture(e.pointerId); } catch(_) {} });
-      area.addEventListener('pointerup', e => { if (x0 == null) return; const dx=e.clientX-x0; x0=null; if (Math.abs(dx)>45) go(dx>0?-1:1); });
+      area.addEventListener('pointerdown', e => { x0 = e.clientX; try { area.setPointerCapture(e.pointerId); } catch (_) {} });
+      area.addEventListener('pointerup', e => { if (x0 == null) return; const dx = e.clientX - x0; x0 = null; if (Math.abs(dx) > 45) go(dx > 0 ? -1 : 1); });
     }
     render(); restart();
   });
@@ -176,16 +185,15 @@
     const nextBtn = controls?.querySelector('[aria-label^="Next"]');
     const originalBtn = controls?.querySelector('.story-original');
     let index = 0;
-    const countText = current?.textContent || '';
-    const m = countText.match(/(\d+)\s*\/\s*(\d+)/);
-    if (m) index = Math.max(0, Math.min(slides.length-1, Number(m[1])-1));
+    const m = (current?.textContent || '').match(/(\d+)\s*\/\s*(\d+)/);
+    if (m) index = Math.max(0, Math.min(slides.length - 1, Number(m[1]) - 1));
     let paused = false, timer = null;
 
     const render = () => {
       track.style.transform = `translate3d(-${index*100}%,0,0)`;
       slides.forEach((s,i) => {
-        s.setAttribute('aria-hidden', i===index ? 'false':'true');
-        const a=s.querySelector('a'); if(a) a.tabIndex=i===index?0:-1;
+        s.setAttribute('aria-hidden', i === index ? 'false' : 'true');
+        const a = s.querySelector('a'); if (a) a.tabIndex = i === index ? 0 : -1;
       });
       if (current) {
         const label = slides[index].getAttribute('aria-label') || `Scene ${index+1}`;
@@ -195,20 +203,20 @@
     };
     const restart = () => {
       if (timer) clearInterval(timer);
-      if (!paused && !reducedMotion) timer = setInterval(() => { index=(index+1)%slides.length; render(); }, 6500);
+      if (!paused && !reducedMotion) timer = setInterval(() => { index = (index + 1) % slides.length; render(); }, 6500);
     };
-    const go = d => { index=(index+d+slides.length)%slides.length; render(); restart(); };
-    prevBtn?.addEventListener('click', ()=>go(-1));
-    nextBtn?.addEventListener('click', ()=>go(1));
-    pauseBtn?.addEventListener('click', ()=>{ paused=!paused; setPauseIcon(pauseBtn, paused, false); restart(); });
-    originalBtn?.addEventListener('click', ()=>{
+    const go = d => { index = (index + d + slides.length) % slides.length; render(); restart(); };
+    prevBtn?.addEventListener('click', () => go(-1));
+    nextBtn?.addEventListener('click', () => go(1));
+    pauseBtn?.addEventListener('click', () => { paused = !paused; setPauseIcon(pauseBtn, paused, false); restart(); });
+    originalBtn?.addEventListener('click', () => {
       const cover = player.querySelector('.story-image-heading img');
       if (cover?.src) window.open(cover.src, '_blank', 'noopener,noreferrer');
     });
-    let x0=null;
-    const viewport=player.querySelector('[data-slot="carousel-content"]');
-    viewport?.addEventListener('pointerdown', e=>{x0=e.clientX; try{viewport.setPointerCapture(e.pointerId)}catch(_){}});
-    viewport?.addEventListener('pointerup', e=>{if(x0==null)return; const dx=e.clientX-x0; x0=null; if(Math.abs(dx)>45) go(dx>0?-1:1);});
+    let x0 = null;
+    const viewport = player.querySelector('[data-slot="carousel-content"]');
+    viewport?.addEventListener('pointerdown', e => { x0 = e.clientX; try { viewport.setPointerCapture(e.pointerId); } catch (_) {} });
+    viewport?.addEventListener('pointerup', e => { if (x0 == null) return; const dx = e.clientX - x0; x0 = null; if (Math.abs(dx) > 45) go(dx > 0 ? -1 : 1); });
     render(); restart();
   });
 })();

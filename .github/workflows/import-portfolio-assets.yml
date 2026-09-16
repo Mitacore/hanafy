@@ -16,39 +16,109 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Download portfolio assets from Google Drive
+      - name: Mirror Google Drive portfolio files into the site
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p assets/projects
+          mkdir -p assets/projects/drive
 
-          download_drive_file() {
-            local id="$1"
-            local output="$2"
-            echo "Downloading $output"
-            curl --fail --location --retry 3 --retry-delay 2 \
-              "https://drive.usercontent.google.com/download?id=${id}&export=download&confirm=t" \
-              --output "$output"
-            test -s "$output"
-            file "$output"
+          python - <<'PY'
+          import json
+          import re
+          import shutil
+          import subprocess
+          from pathlib import Path
+
+          index = Path('index.html').read_text(encoding='utf-8')
+          ids = list(dict.fromkeys(re.findall(r'https://drive\.google\.com/file/d/([A-Za-z0-9_-]+)', index)))
+
+          # These four September files already have clean permanent filenames.
+          preferred = {
+              '10p3hql9ykMntPBlD6ZV-EIRg0oIK731o': 'assets/projects/zayed-race-hungary-2026.pdf',
+              '1yZUWEpHQEO6JiA0yR_Yff02KHQnLu6yr': 'assets/projects/zayed-race-china-2026.pdf',
+              '1d_uwcRS_Orty_LPEfDT38u4jh2HsMFFq': 'assets/projects/thumma-inqadat.png',
+              '118-GXi9kPXF8JwGF_cs1xtq4GZz_wihA': 'assets/projects/hunalika-hubb.png',
           }
 
-          download_drive_file "10p3hql9ykMntPBlD6ZV-EIRg0oIK731o" "assets/projects/zayed-race-hungary-2026.pdf"
-          download_drive_file "1yZUWEpHQEO6JiA0yR_Yff02KHQnLu6yr" "assets/projects/zayed-race-china-2026.pdf"
-          download_drive_file "1d_uwcRS_Orty_LPEfDT38u4jh2HsMFFq" "assets/projects/thumma-inqadat.png"
-          download_drive_file "118-GXi9kPXF8JwGF_cs1xtq4GZz_wihA" "assets/projects/hunalika-hubb.png"
+          ext_by_mime = {
+              'application/pdf': 'pdf',
+              'image/png': 'png',
+              'image/jpeg': 'jpg',
+              'image/webp': 'webp',
+              'image/gif': 'gif',
+              'image/tiff': 'tif',
+              'image/svg+xml': 'svg',
+              'video/mp4': 'mp4',
+              'video/quicktime': 'mov',
+              'audio/mpeg': 'mp3',
+              'application/zip': 'zip',
+          }
 
-          head -c 4 assets/projects/zayed-race-hungary-2026.pdf | grep -q '%PDF'
-          head -c 4 assets/projects/zayed-race-china-2026.pdf | grep -q '%PDF'
-          python - <<'PY'
-          from pathlib import Path
-          for path in [Path('assets/projects/thumma-inqadat.png'), Path('assets/projects/hunalika-hubb.png')]:
-              data = path.read_bytes()[:12]
-              if not (data.startswith(b'\x89PNG\r\n\x1a\n') or data.startswith(b'\xff\xd8\xff') or data.startswith(b'RIFF')):
-                  raise SystemExit(f'Unexpected image format: {path}')
+          mapping = {}
+          failures = []
+          total_bytes = 0
+          max_single = 95 * 1024 * 1024
+          max_total = 700 * 1024 * 1024
+
+          for drive_id in ids:
+              preferred_path = preferred.get(drive_id)
+              if preferred_path and Path(preferred_path).is_file():
+                  mapping[drive_id] = preferred_path
+                  total_bytes += Path(preferred_path).stat().st_size
+                  continue
+
+              temp = Path('assets/projects/drive') / f'{drive_id}.download'
+              url = f'https://drive.usercontent.google.com/download?id={drive_id}&export=download&confirm=t'
+              try:
+                  subprocess.run([
+                      'curl', '--fail', '--location', '--silent', '--show-error',
+                      '--retry', '3', '--retry-delay', '2', url, '--output', str(temp)
+                  ], check=True)
+
+                  size = temp.stat().st_size
+                  if not size:
+                      raise RuntimeError('empty response')
+                  if size > max_single:
+                      raise RuntimeError(f'file is {size} bytes, above the 95 MB GitHub limit')
+                  if total_bytes + size > max_total:
+                      raise RuntimeError('portfolio mirror would exceed the 700 MB safety cap')
+
+                  mime = subprocess.check_output(['file', '-b', '--mime-type', str(temp)], text=True).strip()
+                  if mime == 'text/html':
+                      raise RuntimeError('Drive returned an HTML page instead of the file')
+                  ext = ext_by_mime.get(mime)
+                  if not ext:
+                      raise RuntimeError(f'unsupported MIME type: {mime}')
+
+                  dest = Path('assets/projects/drive') / f'{drive_id}.{ext}'
+                  if dest.exists():
+                      dest.unlink()
+                  temp.replace(dest)
+                  mapping[drive_id] = dest.as_posix()
+                  total_bytes += size
+                  print(f'Imported {drive_id} -> {dest} ({mime}, {size} bytes)')
+              except Exception as exc:
+                  temp.unlink(missing_ok=True)
+                  failures.append({'id': drive_id, 'error': str(exc)})
+                  print(f'SKIPPED {drive_id}: {exc}')
+
+          Path('assets/projects/drive-map.json').write_text(
+              json.dumps(mapping, ensure_ascii=False, indent=2) + '\n',
+              encoding='utf-8'
+          )
+          Path('assets/projects/drive-import-report.json').write_text(
+              json.dumps({
+                  'drive_links_found': len(ids),
+                  'mirrored_locally': len(mapping),
+                  'failed_or_skipped': failures,
+                  'mirrored_bytes': total_bytes,
+              }, ensure_ascii=False, indent=2) + '\n',
+              encoding='utf-8'
+          )
+          print(f'Mirrored {len(mapping)}/{len(ids)} unique Drive-linked files.')
           PY
 
-      - name: Commit imported assets
+      - name: Commit mirrored assets
         shell: bash
         run: |
           set -euo pipefail
@@ -59,5 +129,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add assets/projects
-          git commit -m "Import portfolio project assets"
+          git commit -m "Mirror portfolio Drive assets into GitHub Pages"
           git push

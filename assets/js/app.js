@@ -3,6 +3,18 @@
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Portfolio link routing: single artworks keep their exact Google Drive image,
+  // while carousel covers open the combined PDF preview.
+  const portfolioLinkOverrides = new Map([
+    ['https://drive.google.com/file/d/17FJs_ft4JCNUQbdLWBq267QjnoHj9iiV/view?usp=drivesdk', 'https://drive.google.com/file/d/1lf2cU8Ik7oJbmdrZ4o1oROo1jPh0r3Xi/view?usp=drivesdk'],
+    ['https://drive.google.com/file/d/1PYZEKhfVo2BZgqLpi-vyEGGGoRQxaLLt/view?usp=drivesdk', 'https://drive.google.com/file/d/10p3hql9ykMntPBlD6ZV-EIRg0oIK731o/view?usp=drivesdk'],
+    ['https://drive.google.com/file/d/12El-dIL-rmMTNX7LrcMU_tMnqrKJ5Axd/view?usp=drivesdk', 'https://drive.google.com/file/d/1yZUWEpHQEO6JiA0yR_Yff02KHQnLu6yr/view?usp=drivesdk']
+  ]);
+  document.querySelectorAll('a.moving-frame[href]').forEach(a => {
+    const replacement = portfolioLinkOverrides.get(a.getAttribute('href'));
+    if (replacement) a.setAttribute('href', replacement);
+  });
+
   function setPauseIcon(button, paused, withText = false) {
     if (!button) return;
     button.setAttribute('aria-pressed', paused ? 'true' : 'false');

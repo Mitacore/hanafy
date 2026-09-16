@@ -3,24 +3,34 @@
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Serve selected portfolio projects directly from this GitHub Pages site.
-  const localProjectLinks = new Map([
-    ['10p3hql9ykMntPBlD6ZV-EIRg0oIK731o', 'assets/projects/zayed-race-hungary-2026.pdf'],
-    ['1yZUWEpHQEO6JiA0yR_Yff02KHQnLu6yr', 'assets/projects/zayed-race-china-2026.pdf'],
-    ['1d_uwcRS_Orty_LPEfDT38u4jh2HsMFFq', 'assets/projects/thumma-inqadat.png'],
-    ['118-GXi9kPXF8JwGF_cs1xtq4GZz_wihA', 'assets/projects/hunalika-hubb.png'],
-  ]);
+  // Prefer files mirrored into this GitHub Pages site over external Google Drive links.
+  const builtInProjectLinks = {
+    '10p3hql9ykMntPBlD6ZV-EIRg0oIK731o': 'assets/projects/zayed-race-hungary-2026.pdf',
+    '1yZUWEpHQEO6JiA0yR_Yff02KHQnLu6yr': 'assets/projects/zayed-race-china-2026.pdf',
+    '1d_uwcRS_Orty_LPEfDT38u4jh2HsMFFq': 'assets/projects/thumma-inqadat.png',
+    '118-GXi9kPXF8JwGF_cs1xtq4GZz_wihA': 'assets/projects/hunalika-hubb.png',
+  };
 
-  document.querySelectorAll('a[href*="drive.google.com/file/d/"]').forEach(a => {
-    const href = a.getAttribute('href') || '';
-    for (const [driveId, localPath] of localProjectLinks) {
-      if (!href.includes(`/d/${driveId}/`)) continue;
-      a.setAttribute('href', localPath);
-      const label = a.getAttribute('aria-label');
-      if (label) a.setAttribute('aria-label', label.replace(/open image in Google Drive/i, 'open project'));
-      break;
-    }
-  });
+  function applyLocalProjectLinks(mapping) {
+    if (!mapping || typeof mapping !== 'object') return;
+    document.querySelectorAll('a[href*="drive.google.com/file/d/"], [data-href*="drive.google.com/file/d/"]').forEach(el => {
+      const attr = el.hasAttribute('href') ? 'href' : 'data-href';
+      const value = el.getAttribute(attr) || '';
+      const match = value.match(/drive\.google\.com\/file\/d\/([A-Za-z0-9_-]+)/);
+      if (!match) return;
+      const localPath = mapping[match[1]];
+      if (!localPath) return;
+      el.setAttribute(attr, localPath);
+      const label = el.getAttribute('aria-label');
+      if (label) el.setAttribute('aria-label', label.replace(/open image in Google Drive/i, 'open project'));
+    });
+  }
+
+  applyLocalProjectLinks(builtInProjectLinks);
+  fetch('assets/projects/drive-map.json', {cache: 'no-store'})
+    .then(response => response.ok ? response.json() : null)
+    .then(applyLocalProjectLinks)
+    .catch(() => {});
 
   function setPauseIcon(button, paused, withText = false) {
     if (!button) return;

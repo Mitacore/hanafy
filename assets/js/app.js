@@ -1,4 +1,9 @@
 (() => {
+  const theme = document.createElement('link');
+  theme.rel = 'stylesheet';
+  theme.href = 'assets/css/unified-theme.css?v=20260916a';
+  document.head.appendChild(theme);
+
   const load = src => new Promise((resolve, reject) => {
     const s = document.createElement('script');
     s.src = src;

@@ -24,6 +24,6 @@
   }).then(() => {
     return load('assets/js/viewer.js?v=20260916d');
   }).then(() => {
-    return load('assets/js/viewer-controls.js?v=20260916a');
+    return load('assets/js/viewer-controls.js?v=20260916b');
   }).catch(err => console.error('Portfolio runtime failed to load', err));
 })();

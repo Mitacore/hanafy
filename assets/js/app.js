@@ -3,25 +3,38 @@
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Portfolio link routing: single artworks keep their exact Google Drive image,
-  // while selected carousel covers open a combined PDF preview.
   const portfolioLinkOverrides = new Map([
     ['https://drive.google.com/file/d/17FJs_ft4JCNUQbdLWBq267QjnoHj9iiV/view?usp=drivesdk', 'https://drive.google.com/file/d/1lf2cU8Ik7oJbmdrZ4o1oROo1jPh0r3Xi/view?usp=drivesdk'],
     ['https://drive.google.com/file/d/1PYZEKhfVo2BZgqLpi-vyEGGGoRQxaLLt/view?usp=drivesdk', 'https://drive.google.com/file/d/10p3hql9ykMntPBlD6ZV-EIRg0oIK731o/view?usp=drivesdk'],
     ['https://drive.google.com/file/d/12El-dIL-rmMTNX7LrcMU_tMnqrKJ5Axd/view?usp=drivesdk', 'https://drive.google.com/file/d/1yZUWEpHQEO6JiA0yR_Yff02KHQnLu6yr/view?usp=drivesdk']
   ]);
 
-  // IMPORTANT: artwork links must remain clickable while the columns animate.
-  // The previous drag handler captured the pointer at the column level, which could
-  // cancel the browser's normal anchor click. Keep pointer events on the anchor and
-  // do not let a click on artwork start a column drag.
+  // Make every animated artwork reliably clickable. We navigate on pointer-up
+  // instead of depending on the browser's synthetic click, because the artwork
+  // is inside a continuously scrolling container and that can cancel normal clicks.
   document.querySelectorAll('a.moving-frame[href]').forEach(a => {
     const replacement = portfolioLinkOverrides.get(a.getAttribute('href'));
     if (replacement) a.setAttribute('href', replacement);
     a.style.pointerEvents = 'auto';
-    a.addEventListener('pointerdown', e => e.stopPropagation());
-    a.addEventListener('pointerup', e => e.stopPropagation());
-    a.addEventListener('click', e => e.stopPropagation());
+    a.style.cursor = 'pointer';
+
+    a.addEventListener('pointerdown', e => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      e.stopPropagation();
+    });
+
+    a.addEventListener('pointerup', e => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      e.preventDefault();
+      e.stopPropagation();
+      window.location.assign(a.href);
+    });
+
+    // Keyboard accessibility: Enter still follows the link.
+    a.addEventListener('click', e => {
+      if (e.detail !== 0) e.preventDefault();
+      e.stopPropagation();
+    });
   });
 
   function setPauseIcon(button, paused, withText = false) {
@@ -42,7 +55,6 @@
     if (old) button.setAttribute('aria-label', old.replace(/^(Pause|Play)/, paused ? 'Play' : 'Pause'));
   }
 
-  // Keep all internal navigation independent from the original ChatGPT Site domain.
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const id = a.getAttribute('href');
@@ -55,7 +67,6 @@
     });
   });
 
-  // Social-media vertical artwork streams.
   const hqControllers = [];
   document.querySelectorAll('.motion-panel').forEach(panel => {
     panel.dataset.paused = panel.dataset.paused || 'false';
@@ -71,7 +82,9 @@
       let lastTime = performance.now();
       let cycleHeight = 0;
       const reverse = col.classList.contains('hq-down');
-      const duration = panel.classList.contains('motion-mohtawa') ? 37 : 46;
+      // Fixed visual speed so Abu Dhabi TV and Mohtawa move at the same pace,
+      // regardless of how many artworks each column contains.
+      const pixelsPerSecond = 38;
 
       const measure = () => {
         const first = col.querySelector('.hq-cycle');
@@ -81,8 +94,7 @@
       const frame = now => {
         const dt = Math.min((now-lastTime)/1000, .05); lastTime = now;
         if (!reducedMotion && panel.dataset.paused !== 'true' && !hover && !dragging && cycleHeight > 0) {
-          const speed = cycleHeight / duration;
-          col.scrollTop += (reverse ? -1 : 1) * speed * dt;
+          col.scrollTop += (reverse ? -1 : 1) * pixelsPerSecond * dt;
           if (!reverse && col.scrollTop >= cycleHeight) col.scrollTop -= cycleHeight;
           if (reverse && col.scrollTop <= 0) col.scrollTop += cycleHeight;
         }
@@ -93,7 +105,6 @@
       col.addEventListener('focusin', () => hover = true);
       col.addEventListener('focusout', () => hover = false);
       col.addEventListener('pointerdown', e => {
-        // Links get the pointer so the browser can open them normally.
         if (e.target.closest('a.moving-frame')) return;
         if (e.pointerType === 'mouse' && e.button !== 0) return;
         dragging = true; lastY = e.clientY; startScroll = col.scrollTop;
@@ -117,7 +128,6 @@
   });
   window.addEventListener('load', () => hqControllers.forEach(fn => fn()), {once:true});
 
-  // CSS ribbon sections: Character Design and Sketchbook.
   document.querySelectorAll('.art-ribbon').forEach(ribbon => {
     const btn = ribbon.querySelector('.ribbon-toolbar button');
     if (!btn) return;
@@ -128,7 +138,6 @@
     });
   });
 
-  // Concept art album.
   document.querySelectorAll('.concept-composition').forEach(concept => {
     const pages = [...concept.querySelectorAll('.concept-page')];
     const backs = [...concept.querySelectorAll('.concept-backdrop img')];
@@ -172,7 +181,6 @@
     render(); restart();
   });
 
-  // Storyboard carousels.
   document.querySelectorAll('.story-player').forEach(player => {
     const track = player.querySelector('.story-slide-track');
     const slides = [...player.querySelectorAll('.story-slide')];

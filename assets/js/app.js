@@ -1,7 +1,7 @@
 (() => {
   const theme = document.createElement('link');
   theme.rel = 'stylesheet';
-  theme.href = 'assets/css/unified-theme.css?v=20260916b';
+  theme.href = 'assets/css/unified-theme.css?v=20260916c';
   document.head.appendChild(theme);
 
   const load = src => new Promise((resolve, reject) => {
@@ -27,6 +27,6 @@
   }).then(() => load('assets/js/viewer.js?v=20260916d'))
     .then(() => load('assets/js/viewer-controls.js?v=20260916b'))
     .then(() => load('assets/js/mohtawa-viewer.js?v=20260916a'))
-    .then(() => load('assets/js/character-showcase.js?v=20260916c'))
+    .then(() => load('assets/js/character-showcase.js?v=20260916d'))
     .catch(err => console.error('Portfolio runtime failed to load', err));
 })();

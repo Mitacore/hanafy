@@ -35,10 +35,29 @@
     }
 
     .reference-intro{container-type:inline-size!important}
-    .reference-intro>.reference-crop,
-    .reference-intro>.reference-crop>img,
-    .flow-intro .portfolio-hero,
+
+    /* Full-bleed hero: at 100% browser zoom the image touches both viewport edges. */
+    .flow-intro .portfolio-hero{
+      width:100vw!important;
+      max-width:100vw!important;
+      margin-left:calc(50% - 50vw)!important;
+      margin-right:calc(50% - 50vw)!important;
+      position:relative!important;
+      left:auto!important;
+      right:auto!important;
+      overflow:hidden!important;
+    }
     .flow-intro .portfolio-hero>img{
+      display:block!important;
+      width:100vw!important;
+      max-width:none!important;
+      height:auto!important;
+      margin:0!important;
+      object-fit:cover!important;
+    }
+
+    .reference-intro>.reference-crop,
+    .reference-intro>.reference-crop>img{
       width:100%!important;
       max-width:none!important;
     }

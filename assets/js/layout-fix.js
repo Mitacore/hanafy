@@ -36,25 +36,6 @@
 
     .reference-intro{container-type:inline-size!important}
 
-    /* About text: move it upward and make it larger so the paper area feels fuller. */
-    .reference-about{
-      top:57.4%!important;
-      left:45.5%!important;
-      width:48.5%!important;
-      font-size:clamp(10px,1.52cqw,15.5px)!important;
-      line-height:1.18!important;
-      transform:none!important;
-    }
-    .reference-about p{
-      margin:0 0 .28em!important;
-      line-height:1.18!important;
-    }
-    .reference-about h3{
-      margin:.16em 0 .05em!important;
-      font-size:1.12em!important;
-      line-height:1.05!important;
-    }
-
     /* Full-bleed portfolio hero. */
     .flow-intro .portfolio-hero{
       width:100vw!important;
@@ -203,12 +184,6 @@
 
     @media(max-width:760px){
       .site-header{padding:12px 20px!important}
-      .reference-about{
-        top:57.9%!important;
-        left:45%!important;
-        width:50%!important;
-        font-size:clamp(7px,1.48cqw,12px)!important;
-      }
       .social-flow{padding-left:14px!important;padding-right:14px!important}
       .social-flow .motion-mohtawa{width:100vw!important;margin-left:calc(50% - 50vw)!important;margin-right:calc(50% - 50vw)!important}
       .work-section,

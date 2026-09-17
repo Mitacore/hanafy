@@ -10,11 +10,10 @@
   });
 
   load('assets/js/app-core.js?v=20260917b')
-    .then(() => load('assets/js/client-wall.js?v=20260917a'))
-    .then(() => load('assets/js/client-wall-position-fix.js?v=20260917b'))
     .then(() => load('assets/js/concept-cinema.js?v=20260917a'))
     .then(() => load('assets/js/viewer-performance.js?v=20260917a'))
     .then(() => load('assets/js/viewer.js?v=20260917a'))
     .then(() => load('assets/js/viewer-floating.js?v=20260917a'))
+    .then(() => load('assets/js/end-section.js?v=20260917c'))
     .catch(err => console.error('Portfolio runtime failed to load', err));
 })();

@@ -15,6 +15,6 @@
     .then(() => load('assets/js/viewer.js?v=20260917a'))
     .then(() => load('assets/js/viewer-floating.js?v=20260917a'))
     .then(() => load('assets/js/end-section.js?v=20260917m'))
-    .then(() => load('assets/js/layout-fix.js?v=20260917b'))
+    .then(() => load('assets/js/layout-fix.js?v=20260917c'))
     .catch(err => console.error('Portfolio runtime failed to load', err));
 })();

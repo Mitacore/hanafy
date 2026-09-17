@@ -84,7 +84,7 @@
       const reverse = col.classList.contains('hq-down');
       // Fixed visual speed so Abu Dhabi TV and Mohtawa move at the same pace,
       // regardless of how many artworks each column contains.
-      const pixelsPerSecond = 38;
+      const pixelsPerSecond = 30;
 
       const measure = () => {
         const first = col.querySelector('.hq-cycle');

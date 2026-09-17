@@ -10,6 +10,7 @@
   });
 
   load('assets/js/app-core.js?v=20260917b')
+    .then(() => load('assets/js/client-wall.js?v=20260917a'))
     .then(() => load('assets/js/concept-cinema.js?v=20260917a'))
     .then(() => load('assets/js/viewer-performance.js?v=20260917a'))
     .then(() => load('assets/js/viewer.js?v=20260917a'))

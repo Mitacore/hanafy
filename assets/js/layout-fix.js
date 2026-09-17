@@ -36,7 +36,7 @@
 
     .reference-intro{container-type:inline-size!important}
 
-    /* Full-bleed hero: at 100% browser zoom the image touches both viewport edges. */
+    /* Full-bleed portfolio hero. */
     .flow-intro .portfolio-hero{
       width:100vw!important;
       max-width:100vw!important;
@@ -69,10 +69,47 @@
     }
 
     .social-flow .motion-panel,
-    .social-flow .motion-mohtawa,
     .social-flow .reference-divider{
       width:100%!important;
       max-width:none!important;
+    }
+
+    /* Mohtawa/content block should also touch the viewport edges at 100% zoom. */
+    .social-flow .motion-mohtawa{
+      width:100vw!important;
+      max-width:100vw!important;
+      margin-left:calc(50% - 50vw)!important;
+      margin-right:calc(50% - 50vw)!important;
+      padding-left:0!important;
+      padding-right:0!important;
+      box-sizing:border-box!important;
+      overflow:hidden!important;
+    }
+    .social-flow .motion-mohtawa>.reference-divider,
+    .social-flow .motion-mohtawa>.image-cover,
+    .social-flow .motion-mohtawa .reference-divider,
+    .social-flow .motion-mohtawa .image-cover,
+    .social-flow .motion-mohtawa .original-crop,
+    .social-flow .motion-mohtawa .original-crop>img{
+      width:100%!important;
+      max-width:none!important;
+      margin-left:0!important;
+      margin-right:0!important;
+    }
+    .social-flow .motion-mohtawa .reference-divider>img,
+    .social-flow .motion-mohtawa>.reference-divider>img{
+      display:block!important;
+      width:100%!important;
+      max-width:none!important;
+      height:auto!important;
+    }
+    .social-flow .motion-mohtawa .reference-description{
+      width:min(880px,88vw)!important;
+      max-width:none!important;
+      margin-left:auto!important;
+      margin-right:auto!important;
+      padding-left:0!important;
+      padding-right:0!important;
     }
 
     .social-flow .hq-window{
@@ -149,6 +186,7 @@
     @media(max-width:760px){
       .site-header{padding:12px 20px!important}
       .social-flow{padding-left:14px!important;padding-right:14px!important}
+      .social-flow .motion-mohtawa{width:100vw!important;margin-left:calc(50% - 50vw)!important;margin-right:calc(50% - 50vw)!important}
       .work-section,
       #concept-art>.artwork-block,
       .game-section{padding-left:18px!important;padding-right:18px!important}

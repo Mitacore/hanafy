@@ -17,6 +17,5 @@
     .then(() => load('assets/js/end-section.js?v=20260917m'))
     .then(() => load('assets/js/layout-fix.js?v=20260917e'))
     .then(() => load('assets/js/content-scale-fix.js?v=20260917b'))
-    .then(() => load('assets/js/character-showcase.js?v=20260920a'))
     .catch(err => console.error('Portfolio runtime failed to load', err));
 })();
